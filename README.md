@@ -1,5 +1,7 @@
 # NexusRhythm 🎵
 
+![banner](banner.gif)
+
 > **AI 时代的工程开发节奏** — 让 Claude Code 成为真正懂你项目的搭档
 
 专为 Claude Code CLI 深度集成而设计的项目开发框架。Clone 即用，无需安装。
