@@ -1,6 +1,10 @@
-# NexusRhythm 🎵
+<div align="center">
+  <img src="https://github.com/NeoxNexus/.github/raw/main/profile/logo.png" alt="NeoxNexus Logo" width="300"/>
+  <h1>NeoxNexus</h1>
+  <p>Next-Gen AI Ecosystem by Neo</p>
+</div>
 
-![banner](banner.gif)
+# NexusRhythm 🎵
 
 > **AI 时代的工程开发节奏** — 让 Claude Code 成为真正懂你项目的搭档
 
