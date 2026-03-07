@@ -91,6 +91,7 @@ project/
         ├── phase-end.md         # /phase-end
         ├── gate-check.md        # /gate-check
         ├── idea-review.md       # /idea-review
+        ├── doctor.md            # /doctor
         ├── spec.md              # /spec [功能名]
         ├── retro.md             # /retro
         ├── journal.md           # /journal
@@ -110,6 +111,7 @@ project/
 | `/gate-check` | 准备提交 | 三门禁：类型检查 + 构建 + 全量测试 |
 | `/review` | 需要独立评审时 | 手动触发 reviewer，输出审计结论 |
 | `/idea-review` | 阶段结束前 | 审核 backlog 中的点子，合格后再同步计划 |
+| `/doctor` | 会话早期或修复后 | 自检脚手架、hooks、commands 和阶段材料是否健康 |
 | `/phase-end` | 阶段完工 | 三门禁 → 更新 ROADMAP → Walkthrough → 召唤 reviewer |
 | `/retro` | 阶段结束后 | 引导 2 分钟小复盘并记录 |
 | `/journal` | 每天 | 快速记录今日进展和踩坑 |
@@ -131,7 +133,7 @@ project/
 ## 💡 推荐工作流
 
 ```
-会话开始 → /sync → 确认状态
+会话开始 → /sync → /doctor（可选）→ 确认状态
      ↓
 开新功能 → /phase-start → (architect 写 SPEC + 红灯测试)
      ↓
