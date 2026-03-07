@@ -3,6 +3,8 @@
 **Date Started**: 2026-03-08  
 **Purpose**: 收集本轮执行中出现的高价值改进想法，留待后续集中头脑风暴
 
+> 这是原始收集区，不是承诺区。只有经过 `/idea-review` 审核通过的点子，才能进入计划文档、ADR 或 `ROADMAP.md`。
+
 ---
 
 ## Product Direction

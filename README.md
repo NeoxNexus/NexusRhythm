@@ -90,6 +90,7 @@ project/
         ├── phase-start.md       # /phase-start
         ├── phase-end.md         # /phase-end
         ├── gate-check.md        # /gate-check
+        ├── idea-review.md       # /idea-review
         ├── spec.md              # /spec [功能名]
         ├── retro.md             # /retro
         ├── journal.md           # /journal
@@ -108,6 +109,7 @@ project/
 | `/spec [功能名]` | 需要 SDD | 基于模板生成 SDD，自动填充数据流和边界条件 |
 | `/gate-check` | 准备提交 | 三门禁：类型检查 + 构建 + 全量测试 |
 | `/review` | 需要独立评审时 | 手动触发 reviewer，输出审计结论 |
+| `/idea-review` | 阶段结束前 | 审核 backlog 中的点子，合格后再同步计划 |
 | `/phase-end` | 阶段完工 | 三门禁 → 更新 ROADMAP → Walkthrough → 召唤 reviewer |
 | `/retro` | 阶段结束后 | 引导 2 分钟小复盘并记录 |
 | `/journal` | 每天 | 快速记录今日进展和踩坑 |
@@ -137,7 +139,7 @@ project/
      ↓
 准备提交 → /gate-check → 三门禁全通过
      ↓
-阶段结束 → /phase-end → (reviewer 评审) → /retro → /distill
+阶段结束 → /phase-end → (reviewer 评审) → /retro → /idea-review → /distill
      ↓
 下个阶段循环 ↑
 ```

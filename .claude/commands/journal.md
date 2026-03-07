@@ -24,6 +24,11 @@ disable-model-invocation: true
 
 **突发灵感**：有什么值得记录的想法？（可选）
 
+如果属于值得后续规划的点子：
+- 追加到 `docs/IDEA_BACKLOG.md`
+- 不直接写入 `ROADMAP.md`
+- 提醒后续在阶段结束前运行 `/idea-review`
+
 **阻塞 / 待解决**：有什么还没解决的问题？（可选）
 
 **明日计划**：明天打算做什么？
@@ -40,6 +45,7 @@ disable-model-invocation: true
   明日计划：N 项
 
 💡 如果今天的踩坑值得永久记录，运行 /distill 提炼到项目教训库。
+💡 如果今天出现了值得投入评估的新点子，记录到 `docs/IDEA_BACKLOG.md`，并在阶段结束前运行 /idea-review。
 ```
 
 ---

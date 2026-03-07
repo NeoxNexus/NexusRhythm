@@ -39,6 +39,10 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 
 **状态图例**：✅ 已完成 | 🔄 进行中 | ⏳ 计划中 | ⏸️ 已暂停 | ❌ 已取消
 
+**规划输入规则**：
+- 执行过程中产生的点子先进入 `docs/IDEA_BACKLOG.md`
+- 只有经过 `/idea-review` 审核为 `Approved Now` / `Approved Later` 的点子，才允许进入本 ROADMAP
+
 ---
 
 ## 项目甘特图
