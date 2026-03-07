@@ -1,0 +1,64 @@
+# ========================
+# NexusFlow Rhythm 脚手架
+# ========================
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Node.js
+node_modules/
+.next/
+.nuxt/
+dist/
+
+# Go
+vendor/
+
+# Rust
+target/
+
+# 环境变量（绝不提交）
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# 日志
+*.log
+logs/
+
+# 编译产物
+*.pyc
+*.class
+*.o
+*.out
+
+# 临时文件
+*.tmp
+*.temp
+.temp/
+tmp/
