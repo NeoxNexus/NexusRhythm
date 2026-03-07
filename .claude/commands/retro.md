@@ -1,3 +1,8 @@
+---
+description: Run a short retrospective for the current phase.
+disable-model-invocation: true
+---
+
 引导一次 2 分钟小复盘，并将结果记录到当前阶段的 Walkthrough 文件。
 
 ---

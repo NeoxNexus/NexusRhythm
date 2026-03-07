@@ -9,7 +9,7 @@
 
 > **AI 时代的工程开发节奏** — 让 Claude Code 成为真正懂你项目的搭档
 
-专为 Claude Code CLI 深度集成而设计的项目开发框架。Clone 即用，无需安装。
+专为 Claude Code 深度集成而设计的项目开发框架。Clone 即用，也支持注入到已有项目。
 
 ---
 
@@ -33,7 +33,7 @@
 ```bash
 # 方式 1：GitHub Template（点击右上角 "Use this template"）
 # 方式 2：直接 clone
-git clone https://github.com/[your-username]/nexus-scaffold.git my-project
+git clone https://github.com/NeoxNexus/NexusRhythm.git my-project
 cd my-project
 rm -rf .git && git init
 ```
@@ -42,7 +42,7 @@ rm -rf .git && git init
 
 ```bash
 # 将框架文件注入已有项目（不覆盖已有文件）
-curl -sSL https://raw.githubusercontent.com/[your-username]/nexus-scaffold/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/NeoxNexus/NexusRhythm/main/install.sh | bash
 ```
 
 ### 初始化你的项目
@@ -65,10 +65,10 @@ project/
 │   ├── SYSTEM_CONTEXT.md        # 🏗️ 架构决策记录
 │   ├── templates/               # 📝 文档模板
 │   │   ├── SPEC.md              #   SDD 模板
-│   │   ├── WALKTHROUGH.md       #   Walkthrough 模板
-│   │   ├── CODE_REVIEW.md       #   Code Review 模板
-│   │   ├── JOURNAL.md           #   日志模板
-│   │   └── ADR.md               #   架构决策记录模板
+│   │   ├── WALKTHROUGH_TEMPLATE.md # Walkthrough 模板
+│   │   ├── CODE_REVIEW_TEMPLATE.md # Code Review 模板
+│   │   ├── JOURNAL_TEMPLATE.md  #   日志模板
+│   │   └── ADR_TEMPLATE.md      #   架构决策记录模板
 │   ├── specs/                   # SDD 文档存放（自动生成）
 │   ├── walkthroughs/            # Walkthrough 存放（自动生成）
 │   ├── reviews/                 # Code Review 存放（自动生成）
@@ -77,6 +77,7 @@ project/
 │
 └── .claude/
     ├── settings.json            # ⚙️ Hooks 配置
+    ├── hooks/                   # 🪝 可复用 hook 脚本
     ├── agents/
     │   ├── architect.md         # 🏛️ 架构师 Agent
     │   ├── reviewer.md          # 🔍 评审 Agent
@@ -106,6 +107,7 @@ project/
 | `/phase-start [名称]` | 开新阶段 | 检查前置条件 → 召唤 architect → 写 SPEC 和红灯测试 |
 | `/spec [功能名]` | 需要 SDD | 基于模板生成 SDD，自动填充数据流和边界条件 |
 | `/gate-check` | 准备提交 | 三门禁：类型检查 + 构建 + 全量测试 |
+| `/review` | 需要独立评审时 | 手动触发 reviewer，输出审计结论 |
 | `/phase-end` | 阶段完工 | 三门禁 → 更新 ROADMAP → Walkthrough → 召唤 reviewer |
 | `/retro` | 阶段结束后 | 引导 2 分钟小复盘并记录 |
 | `/journal` | 每天 | 快速记录今日进展和踩坑 |

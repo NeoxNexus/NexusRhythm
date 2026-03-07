@@ -1,3 +1,9 @@
+---
+description: Start a new phase by checking prerequisites, updating ROADMAP, and invoking the architect workflow.
+argument-hint: "[阶段名称]"
+disable-model-invocation: true
+---
+
 执行新阶段启动检查清单。严格按顺序执行，任一步骤失败则停止并报告原因：
 
 **阶段名称**：$ARGUMENTS（如未提供，从 ROADMAP.md 读取下一个计划中的阶段）

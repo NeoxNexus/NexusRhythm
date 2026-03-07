@@ -1,4 +1,4 @@
-# NexusFlow Rhythm — 开发规范 v2.1
+# NexusRhythm — 开发规范 v2.1
 > 📖 本文档是面向**人类**的完整规范说明。AI 行为约束详见根目录 `CLAUDE.md`。
 
 ---

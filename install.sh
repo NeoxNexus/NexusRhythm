@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NexusFlow Rhythm — install.sh
+# NexusRhythm — install.sh
 # 将框架文件注入已有项目（不覆盖已有文件）
 #
 # 用法：
@@ -53,6 +53,11 @@ echo ""
 echo "🤖 安装 Claude Code 集成..."
 copy_if_not_exists "$SCRIPT_DIR/.claude/settings.json" "$TARGET_DIR/.claude/settings.json"
 
+for hook in "$SCRIPT_DIR/.claude/hooks/"*.sh; do
+  fname=$(basename "$hook")
+  copy_if_not_exists "$hook" "$TARGET_DIR/.claude/hooks/$fname"
+done
+
 for agent in "$SCRIPT_DIR/.claude/agents/"*.md; do
   fname=$(basename "$agent")
   copy_if_not_exists "$agent" "$TARGET_DIR/.claude/agents/$fname"
@@ -80,7 +85,7 @@ done
 
 echo ""
 echo "════════════════════════════════════════"
-echo "🎉 NexusFlow Rhythm 安装完成！"
+echo "🎉 NexusRhythm 安装完成！"
 echo ""
 echo "   下一步："
 echo "   1. 编辑 ROADMAP.md — 填写项目名称、目标、技术栈"

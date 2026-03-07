@@ -1,3 +1,8 @@
+---
+description: Distill recent lessons into reusable rules for future Claude sessions.
+disable-model-invocation: true
+---
+
 从项目记忆中蒸馏教训，更新 `.claude/rules/lessons.md`，让过去的坑永久影响未来的 AI 行为。
 
 ---

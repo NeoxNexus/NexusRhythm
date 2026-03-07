@@ -1,3 +1,8 @@
+---
+description: Run the phase-end ritual, gate checks, walkthrough generation, and reviewer handoff.
+disable-model-invocation: true
+---
+
 执行阶段结束仪式（5 步）。严格按顺序执行：
 
 ---

@@ -6,18 +6,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "RPATH=\"\"; [ -f ROADMAP.md ] && RPATH=ROADMAP.md; [ -f docs/ROADMAP.md ] && RPATH=docs/ROADMAP.md; [ -n \"$RPATH\" ] && echo \"=== NexusRhythm Status ===\" && grep -E 'Current_Phase|Phase_Status|Active_Mode|Pending_Debt' \"$RPATH\" | head -10; exit 0"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-status.sh"
           }
         ]
       }
     ],
     "PreToolUse": [
       {
-        "matcher": "BashTool",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "RPATH=\"\"; [ -f ROADMAP.md ] && RPATH=ROADMAP.md; [ -f docs/ROADMAP.md ] && RPATH=docs/ROADMAP.md; if [ -n \"$RPATH\" ] && grep -q 'Pending_Debt: true' \"$RPATH\"; then if echo \"$CLAUDE_TOOL_INPUT\" | grep -qE 'git commit|git push'; then echo '🚫 BLOCKED: Pending_Debt is true. Clear debt first.' && exit 1; fi; fi; exit 0"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-debt-commits.sh"
           }
         ]
       }

@@ -1,3 +1,8 @@
+---
+description: Record a daily project journal entry using the project template.
+disable-model-invocation: true
+---
+
 帮我记录今日项目日志。
 
 ---
