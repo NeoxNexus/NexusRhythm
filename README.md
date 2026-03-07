@@ -1,8 +1,9 @@
 <div align="center">
-  <img src="https://github.com/NeoxNexus/.github/raw/main/profile/logo.png" alt="NeoxNexus Logo" width="300"/>
+  <img src="https://avatars.githubusercontent.com/u/258567441?v=4" alt="NeoxNexus Logo" width="300"/>
   <h1>NeoxNexus</h1>
   <p>Next-Gen AI Ecosystem by Neo</p>
 </div>
+
 
 # NexusRhythm 🎵
 
