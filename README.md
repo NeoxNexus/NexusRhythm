@@ -42,8 +42,14 @@ rm -rf .git && git init
 ### 已有项目
 
 ```bash
-# 将框架文件注入已有项目（不覆盖已有文件）
-curl -sSL https://raw.githubusercontent.com/NeoxNexus/NexusRhythm/main/install.sh | bash
+# 在你的项目根目录执行（不覆盖已有文件）
+curl -fsSL https://raw.githubusercontent.com/NeoxNexus/NexusRhythm/main/install.sh | bash
+
+# 指定目标目录
+curl -fsSL https://raw.githubusercontent.com/NeoxNexus/NexusRhythm/main/install.sh | bash -s -- /path/to/project
+
+# 如果你已经 clone 了仓库，也可以直接运行
+bash install.sh /path/to/project
 ```
 
 ### 初始化你的项目
