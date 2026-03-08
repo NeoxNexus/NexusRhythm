@@ -4,12 +4,12 @@
 ---
 Project: "NexusRhythm"
 Project_Stage: "DELIVERY"       # IDEA|DISCOVERY|MVP_DEFINED|ROADMAP_READY|DELIVERY
-Current_Phase: "Phase 0 - 初始化与规划"
-Phase_Status: DONE              # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
+Current_Phase: "Phase 1 - Claude Code 兼容性加固"
+Phase_Status: "DONE" # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
 Active_Mode: 1                  # 0=Vibe | 1=Standard(default) | 2=Production
 Pending_Debt: false
 Debt_Deadline: null             # ISO8601，仅 Vibe Sprint 后设置，例: 2026-03-08T21:00:00+08:00
-Phases_Since_Vibe: 1            # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
+Phases_Since_Vibe: 2 # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
 Idea_Clarity: 4
 Target_User: "Claude Code 重度使用者、需要项目级节奏治理的个人开发者与小团队"
 Core_Problem: "项目在目标明确后交付质量高，但缺少脚本化执行层和模糊 idea 的前置收敛层"
@@ -36,7 +36,7 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 - `Project_Stage` 管 idea 到 roadmap 的成熟度；`Phase_Status` 只管当前 Delivery 阶段的执行状态
 - Discovery 产物链路固定为：`IDEA_BRIEF -> MVP_CANVAS -> ROADMAP_INIT -> DELIVERY`
 
-**总体进度**：40%
+**总体进度**：55%
 
 ---
 
@@ -45,9 +45,9 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 | 阶段 | 名称 | 目标 | 状态 | Phase_Status | 预计耗时 | 实际耗时 | 开始 | 结束 |
 |:----:|------|------|------|:------------:|----------|----------|------|------|
 | 0 | 初始化与规划 | 明确定位、完成官方兼容性审计、补齐 Phase 1 规划文档 | ✅ 已完成 | DONE | 4–8h | 3.5h | 2026-03-08 | 2026-03-08 |
-| 1 | Claude Code 兼容性加固 | 落地 hooks smoke tests、`/doctor` 自检与一项代表性 workflow 试点迁移 | ⏳ 计划中 | — | 1–2d | — | — | — |
-| 2 | 自动化与硬门禁 | 把软性流程约束升级为可验证的脚本、CI 和更稳定的 skills 体系 | ⏳ 计划中 | — | 2–4d | — | — | — |
-| 3 | 示例工程与产品化 | 提供 demo 项目、安装验证和对外发布材料 | ⏳ 计划中 | — | 2–3d | — | — | — |
+| 1 | Claude Code 兼容性加固 | 落地 hooks smoke tests、`/doctor` 自检与一项代表性 workflow 试点迁移 | ✅ 已完成 | DONE | 1–2d | 2.5h | 2026-03-09 | 2026-03-09 |
+| 2 | 自动化与硬门禁 | 把软性流程约束升级为可验证的脚本、CI 和更稳定的 skills 体系，并增强 AI 默认引导能力 | ⏳ 计划中 | — | 2–4d | — | — | — |
+| 3 | 示例工程与产品化 | 提供 demo 项目、新手零感知体验验证、安装验证和对外发布材料 | ⏳ 计划中 | — | 2–3d | — | — | — |
 
 **状态图例**：✅ 已完成 | 🔄 进行中 | ⏳ 计划中 | ⏸️ 已暂停 | ❌ 已取消
 
@@ -70,7 +70,7 @@ gantt
     Phase 0 初始化        :done, 2026-03-01, 5d
 
     section 核心开发
-    Phase 1 兼容性加固      :        2026-03-09, 2d
+    Phase 1 兼容性加固      :done, 2026-03-09, 1d
     Phase 2 自动化加固      :        2026-03-11, 4d
     Phase 3 产品化          :        2026-03-15, 3d
 ```
@@ -93,4 +93,22 @@ gantt
 - [x] 三门禁通过
 - [x] WALKTHROUGH_PHASE_0.md 产出
 - [x] CODE_REVIEW_PHASE_0.md 产出
+- [x] ROADMAP.md Phase_Status 更新为 DONE
+
+### Phase 1 — Claude Code 兼容性加固
+
+**目标**：落地 hooks smoke tests、`/doctor` 自检与一项代表性 workflow 试点迁移
+
+**交付物清单**：
+- [x] `/sync` 导航卡输出与渐进式披露
+- [x] hooks / `/sync` / `/review` / 合规审计相关 smoke tests
+- [x] `doctor` workflow 试点迁移到 `.claude/skills/doctor/SKILL.md`
+- [x] `install.sh` 支持复制 `.claude/skills/`
+- [x] `WALKTHROUGH_PHASE_1.md` 产出
+- [x] `CODE_REVIEW_PHASE_1.md` 产出
+
+**阶段结束仪式**：
+- [x] 三门禁通过
+- [x] WALKTHROUGH_PHASE_1.md 产出
+- [x] CODE_REVIEW_PHASE_1.md 产出
 - [x] ROADMAP.md Phase_Status 更新为 DONE

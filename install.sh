@@ -147,6 +147,13 @@ for agent in "$SOURCE_DIR/.claude/agents/"*.md; do
   copy_if_not_exists "$agent" "$TARGET_DIR/.claude/agents/$fname"
 done
 
+if [ -d "$SOURCE_DIR/.claude/skills" ]; then
+  while IFS= read -r -d '' skill_file; do
+    relative_path="${skill_file#"$SOURCE_DIR/"}"
+    copy_if_not_exists "$skill_file" "$TARGET_DIR/$relative_path"
+  done < <(find "$SOURCE_DIR/.claude/skills" -type f -print0)
+fi
+
 for rule in "$SOURCE_DIR/.claude/rules/"*.md; do
   fname=$(basename "$rule")
   copy_if_not_exists "$rule" "$TARGET_DIR/.claude/rules/$fname"

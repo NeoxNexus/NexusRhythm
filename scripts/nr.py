@@ -391,6 +391,133 @@ def next_action(metadata: dict[str, Any]) -> str:
     return mapping.get(phase_status, "下一步：先运行 /doctor 核对工作流状态。")
 
 
+def sync_navigation_card(metadata: dict[str, Any]) -> dict[str, str]:
+    """
+    为 `/sync` 生成面向用户的导航卡文案。
+
+    目标：
+    - 首屏优先讲“现在在做什么、为什么、接下来怎么推进”
+    - 默认使用人话，而不是要求用户先理解状态机术语
+    - 把技术状态保留到附加信息中，而不是作为主文案
+    """
+    if metadata.get("Pending_Debt"):
+        return {
+            "current_step": "先清理当前遗留问题",
+            "reason": "项目里还有已确认但未清理的债务，现在继续开新功能，后面只会更难维护。",
+            "next_step": "先把当前债务收口并恢复到可继续推进的状态，再开始新的功能或阶段。",
+        }
+
+    project_stage = metadata.get("Project_Stage")
+    clarity = metadata.get("Idea_Clarity", 3)
+    if project_stage and project_stage != "DELIVERY":
+        discovery_mapping = {
+            "IDEA": {
+                "current_step": "先把想法说清楚",
+                "reason": "现在还只有一个模糊方向，直接写代码很容易做成你并不真正需要的东西。",
+                "next_step": "先整理目标用户、核心问题和为什么值得做，再收敛最小版本。",
+            },
+            "DISCOVERY": {
+                "current_step": "继续收敛问题和最小版本",
+                "reason": "方向已经有了，但边界还不够清楚，现在进入实现会让范围越来越散。",
+                "next_step": "先把最小可验证版本、范围边界和成功标准压缩清楚，再进入实现。",
+            },
+            "MVP_DEFINED": {
+                "current_step": "把最小版本变成执行路线",
+                "reason": "最小版本已经有轮廓了，但还没拆成可执行的阶段目标。",
+                "next_step": "先把接下来几个阶段的目标排清楚，再进入正式交付。",
+            },
+            "ROADMAP_READY": {
+                "current_step": "确认路线后再进入正式开发",
+                "reason": "项目路线已经初步成型，但还需要确认当前阶段目标和整体约束，避免开工后漂移。",
+                "next_step": "先确认路线、补齐项目上下文，再进入正式交付阶段。",
+            },
+        }
+        if project_stage in discovery_mapping:
+            return discovery_mapping[project_stage]
+
+    if isinstance(clarity, int) and clarity < 3:
+        return {
+            "current_step": "先把目标和边界讲明白",
+            "reason": "当前需求清晰度还不够，马上进入实现会让 AI 和人一起猜需求。",
+            "next_step": "先补充目标用户、核心问题和最小版本边界，再开始新的开发阶段。",
+        }
+
+    phase_status = metadata.get("Phase_Status")
+    phase_mapping = {
+        "PLANNING": {
+            "current_step": "先定义这一阶段到底要交付什么",
+            "reason": "如果不先把范围、接口和边界说清楚，后面的测试和实现都会飘。",
+            "next_step": "先把这一阶段的契约、边界和验收方式写清楚，再开始写测试。",
+        },
+        "SPEC_READY": {
+            "current_step": "先把验收条件变成失败中的测试",
+            "reason": "现在约束已经写清楚了，下一步应该先证明需求被准确表达出来，而不是直接实现。",
+            "next_step": "先补齐会失败的测试，让验证标准落地，再开始写实现。",
+        },
+        "RED_TESTS": {
+            "current_step": "把失败中的测试修到全绿",
+            "reason": "验收条件已经就位，当前重点是只做满足这些条件的实现，避免一边写一边扩范围。",
+            "next_step": "围绕已有测试完成最小实现，直到测试全部通过。",
+        },
+        "GREEN_CODE": {
+            "current_step": "先做质量门禁检查",
+            "reason": "代码已经初步完成，但还没证明它在类型、构建和测试层面都可交付。",
+            "next_step": "执行完整的质量门禁检查，确认类型、构建和测试都通过后再收尾。",
+        },
+        "GATE_CHECK": {
+            "current_step": "补齐阶段收尾材料",
+            "reason": "质量门禁已经通过，但阶段还没有形成可追溯的评审和复盘证据。",
+            "next_step": "补齐 walkthrough 和 review 产物，再结束当前阶段。",
+        },
+        "REVIEW": {
+            "current_step": "处理评审结论并完成归档",
+            "reason": "现在的关键不是继续扩功能，而是把评审提出的问题和结论收干净。",
+            "next_step": "处理评审反馈，确认结果落地后完成阶段归档。",
+        },
+        "DONE": {
+            "current_step": "准备进入下一阶段",
+            "reason": "当前阶段已经完成，继续有效推进的关键是先明确下一个阶段只做什么。",
+            "next_step": "确定下一阶段的唯一核心目标，然后启动新阶段。",
+        },
+    }
+    return phase_mapping.get(
+        phase_status,
+        {
+            "current_step": "先确认当前工作流状态",
+            "reason": "当前状态没有被清晰识别，直接推进容易把节奏搞乱。",
+            "next_step": "先核对脚手架和状态信息，确认当前位置后再继续。",
+        },
+    )
+
+
+def sync_project_summary(metadata: dict[str, Any]) -> list[str]:
+    """返回 `/sync` 的项目摘要信息。"""
+    lines: list[str] = []
+    core_problem = metadata.get("Core_Problem")
+    if core_problem:
+        lines.append(f"核心问题：{core_problem}")
+    target_user = metadata.get("Target_User")
+    if target_user:
+        lines.append(f"目标用户：{target_user}")
+    success_metrics = metadata.get("Success_Metrics")
+    if success_metrics:
+        lines.append(f"成功标准：{success_metrics}")
+    return lines
+
+
+def sync_debug_state(metadata: dict[str, Any]) -> list[str]:
+    """返回 `/sync` 的附加技术状态，便于调试但不抢占首屏。"""
+    project_stage = metadata.get("Project_Stage", "—")
+    idea_clarity = metadata.get("Idea_Clarity", "—")
+    vibe_count = metadata.get("Phases_Since_Vibe", 0)
+    vibe_status = "已解锁" if isinstance(vibe_count, int) and vibe_count >= 3 else "未解锁"
+    return [
+        f"Project_Stage: {project_stage}",
+        f"Idea_Clarity: {idea_clarity}",
+        f"Vibe Sprint: {vibe_status}（计数 {vibe_count}）",
+    ]
+
+
 def cmd_sync(args: argparse.Namespace) -> int:
     """
     命令：/sync
@@ -412,24 +539,30 @@ def cmd_sync(args: argparse.Namespace) -> int:
     print(banner(metadata))
     if args.hook:
         return 0
-    print()
-    project_stage = metadata.get("Project_Stage")
-    if project_stage:
-        print(f"🧭 Project Stage: {project_stage}")
-        print(f"💡 Idea Clarity: {metadata.get('Idea_Clarity', '—')}")
-    target_user = metadata.get("Target_User")
-    if target_user:
-        print(f"🎯 Target User: {target_user}")
-    vibe_count = metadata.get("Phases_Since_Vibe", 0)
-    print(f"🏄 Vibe Sprint: {'已解锁' if isinstance(vibe_count, int) and vibe_count >= 3 else '未解锁'}（计数 {vibe_count}）")
+    navigation = sync_navigation_card(metadata)
+    project_summary = sync_project_summary(metadata)
     memory = collect_memory_summary(root)
-    print("🧠 Hot Memory:")
+    debug_state = sync_debug_state(metadata)
+    print()
+    print("🧭 当前导航卡")
+    print(f"当前步骤：{navigation['current_step']}")
+    print(f"原因：{navigation['reason']}")
+    print(f"下一步：{navigation['next_step']}")
+    if project_summary:
+        print()
+        print("🎯 项目摘要")
+        for line in project_summary:
+            print(f"- {line}")
+    print()
+    print("🧠 热记忆摘要")
     print(f"  Today: {memory['today']}")
     print(f"  Active Tasks: {memory['active_tasks']}")
     print(f"  Blockers: {memory['blockers']}")
     print(f"  Handoff: {memory['handoff']}")
     print()
-    print(f"➡️  {next_action(metadata)}")
+    print("🔎 附加状态")
+    for line in debug_state:
+        print(f"- {line}")
     return 0
 
 

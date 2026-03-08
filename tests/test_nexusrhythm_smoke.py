@@ -77,6 +77,7 @@ class NexusRhythmSmokeTests(unittest.TestCase):
             self.project_root / "scripts" / "nr.py",
             self.project_root / ".claude" / "commands" / "review.md",
             self.project_root / ".claude" / "commands" / "doctor.md",
+            self.project_root / ".claude" / "skills" / "doctor" / "SKILL.md",
             self.project_root / ".claude" / "commands" / "idea-capture.md",
             self.project_root / ".claude" / "commands" / "mvp-shape.md",
             self.project_root / ".claude" / "commands" / "roadmap-init.md",
@@ -124,6 +125,38 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0)
         self.assertEqual(result.stdout.strip(), "")
+
+    def test_sync_renders_navigation_card_for_default_project(self) -> None:
+        result = run(["python3", "scripts/nr.py", "sync"], self.project_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        self.assertIn("🧭 当前导航卡", result.stdout)
+        self.assertIn("当前步骤：", result.stdout)
+        self.assertIn("原因：", result.stdout)
+        self.assertIn("下一步：", result.stdout)
+        self.assertIn("🔎 附加状态", result.stdout)
+
+    def test_sync_uses_human_guidance_for_discovery_projects(self) -> None:
+        replace_roadmap_field(self.project_root, "Project_Stage", '"DISCOVERY"')
+        result = run(["python3", "scripts/nr.py", "sync"], self.project_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        self.assertIn("继续收敛问题和最小版本", result.stdout)
+        self.assertIn("先把最小可验证版本、范围边界和成功标准压缩清楚", result.stdout)
+        self.assertNotIn("/mvp-shape", result.stdout)
+
+    def test_sync_prioritizes_debt_cleanup_when_pending_debt_is_true(self) -> None:
+        replace_roadmap_field(self.project_root, "Pending_Debt", "true")
+        result = run(["python3", "scripts/nr.py", "sync"], self.project_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        self.assertIn("先清理当前遗留问题", result.stdout)
+        self.assertIn("先把当前债务收口并恢复到可继续推进的状态", result.stdout)
+        self.assertNotIn("启动新阶段", result.stdout)
+
+    def test_sync_green_code_points_to_quality_gate(self) -> None:
+        replace_roadmap_field(self.project_root, "Phase_Status", "GREEN_CODE")
+        result = run(["python3", "scripts/nr.py", "sync"], self.project_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        self.assertIn("先做质量门禁检查", result.stdout)
+        self.assertIn("执行完整的质量门禁检查", result.stdout)
 
     def test_pre_tool_use_blocks_git_commit_with_debt(self) -> None:
         replace_roadmap_field(self.project_root, "Pending_Debt", "true")
@@ -218,6 +251,37 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         self.assertIn("IDEA_BRIEF", spec_text)
         self.assertIn("MVP_CANVAS", spec_text)
         self.assertIn("scope 漂移", spec_text)
+
+    def test_review_command_is_available(self) -> None:
+        review_command = self.project_root / ".claude" / "commands" / "review.md"
+        self.assertTrue(review_command.exists())
+        review_text = review_command.read_text(encoding="utf-8")
+        self.assertIn("disable-model-invocation: true", review_text)
+        self.assertIn("调用 `reviewer` agent", review_text)
+
+    def test_doctor_skill_is_available(self) -> None:
+        skill_path = self.project_root / ".claude" / "skills" / "doctor" / "SKILL.md"
+        self.assertTrue(skill_path.exists())
+        skill_text = skill_path.read_text(encoding="utf-8")
+        self.assertIn("name: doctor", skill_text)
+        self.assertIn("disable-model-invocation: true", skill_text)
+        self.assertIn("scripts/nr.py doctor", skill_text)
+        self.assertIn("当前步骤：", skill_text)
+        self.assertIn("原因：", skill_text)
+        self.assertIn("下一步：", skill_text)
+
+    def test_compliance_audit_has_current_sources(self) -> None:
+        audit_path = REPO_ROOT / "docs" / "assessments" / "CLAUDE_CODE_COMPLIANCE_AUDIT.md"
+        self.assertTrue(audit_path.exists())
+        audit_text = audit_path.read_text(encoding="utf-8")
+        self.assertIn("**Date**: 2026-03-08", audit_text)
+        self.assertIn("Audit timestamp: 2026-03-08 Asia/Shanghai.", audit_text)
+        self.assertIn("Claude Code Hooks Docs", audit_text)
+        self.assertIn("Claude Code Slash Commands Docs", audit_text)
+        self.assertIn("Claude Code Skills Docs", audit_text)
+        self.assertIn("Claude Code Subagents Docs", audit_text)
+        self.assertIn("Claude Code Plugins Docs", audit_text)
+        self.assertIn("Claude Code Changelog", audit_text)
 
     def test_doctor_fails_when_spec_template_is_missing(self) -> None:
         (self.project_root / "docs" / "templates" / "SPEC_TEMPLATE.md").unlink()
