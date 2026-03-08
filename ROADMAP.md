@@ -4,12 +4,12 @@
 ---
 Project: "NexusRhythm"
 Project_Stage: "DELIVERY"       # IDEA|DISCOVERY|MVP_DEFINED|ROADMAP_READY|DELIVERY
-Current_Phase: "Phase 2 - 自动化与硬门禁（Slice B：gate-check skill 边界硬化）"
-Phase_Status: "SPEC_READY" # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
+Current_Phase: "Phase 3 - 示例工程与产品化（Slice A：demo workspace bootstrap）"
+Phase_Status: "REVIEW" # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
 Active_Mode: 1                  # 0=Vibe | 1=Standard(default) | 2=Production
 Pending_Debt: false
 Debt_Deadline: null             # ISO8601，仅 Vibe Sprint 后设置，例: 2026-03-08T21:00:00+08:00
-Phases_Since_Vibe: 2 # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
+Phases_Since_Vibe: 3 # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
 Idea_Clarity: 4
 Target_User: "Claude Code 重度使用者、需要项目级节奏治理的个人开发者与小团队"
 Core_Problem: "项目在目标明确后交付质量高，但缺少脚本化执行层和模糊 idea 的前置收敛层"
@@ -46,8 +46,8 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 |:----:|------|------|------|:------------:|----------|----------|------|------|
 | 0 | 初始化与规划 | 明确定位、完成官方兼容性审计、补齐 Phase 1 规划文档 | ✅ 已完成 | DONE | 4–8h | 3.5h | 2026-03-08 | 2026-03-08 |
 | 1 | Claude Code 兼容性加固 | 落地 hooks smoke tests、`/doctor` 自检与一项代表性 workflow 试点迁移 | ✅ 已完成 | DONE | 1–2d | 2.5h | 2026-03-09 | 2026-03-09 |
-| 2 | 自动化与硬门禁 | 把软性流程约束升级为可验证的脚本、CI 和更稳定的 skills 体系，并增强 AI 默认引导能力 | 🔄 进行中 | SPEC_READY | 2–4d | — | 2026-03-09 | — |
-| 3 | 示例工程与产品化 | 提供 demo 项目、新手零感知体验验证、安装验证和对外发布材料 | ⏳ 计划中 | — | 2–3d | — | — | — |
+| 2 | 自动化与硬门禁 | 把软性流程约束升级为可验证的脚本、CI 和更稳定的 skills 体系，并增强 AI 默认引导能力 | ✅ 已完成 | DONE | 2–4d | 2.5h | 2026-03-09 | 2026-03-09 |
+| 3 | 示例工程与产品化 | 提供 demo 项目、新手零感知体验验证、安装验证和对外发布材料 | 🔄 进行中 | REVIEW | — | — | 2026-03-09 | — |
 
 **状态图例**：✅ 已完成 | 🔄 进行中 | ⏳ 计划中 | ⏸️ 已暂停 | ❌ 已取消
 
@@ -123,14 +123,28 @@ gantt
 - [x] `/doctor` 能识别关键自动化接线是否缺失
 - [x] 形成中期收口材料：`docs/specs/SPEC_PHASE_2_ci-backed-hard-gates.md`、`docs/walkthroughs/WALKTHROUGH_PHASE_2.md`、`docs/reviews/CODE_REVIEW_PHASE_2.md`
 
-**Slice B：gate-check skill 边界硬化（当前活跃）**
-- [ ] 新增 `.claude/skills/gate-check/SKILL.md`，提供稳定的 skill 入口
-- [ ] 保持 `/gate-check` command 兼容入口，不破坏已有使用路径
-- [ ] 为 gate-check skill 增加 smoke tests，锁定安装传播和关键能力点
-- [ ] 明确 command-first / skill-first 的边界，避免后续继续无序平移命令
+**Slice B：gate-check skill 边界硬化（已完成）**
+- [x] 新增 `.claude/skills/gate-check/SKILL.md`，提供稳定的 skill 入口
+- [x] 保持 `/gate-check` command 兼容入口，不破坏已有使用路径
+- [x] 为 gate-check skill 增加 smoke tests，锁定安装传播和关键能力点
+- [x] 明确 command-first / skill-first 的边界，避免后续继续无序平移命令
 
 **阶段约束**：
 - [x] Slice A 不在前半段同时推进大规模 skill 迁移
 - [x] CI 逻辑不复制第二套脚本；统一复用现有 `scripts/nr.py` 入口
-- [ ] Slice B 继续只迁移一个已有脚本入口的 workflow，不扩成全量 skills 改造
-- [ ] 不把 skill 变成 command 文案的机械复制；优先强化“何时用、如何解释结果”的边界
+- [x] Slice B 继续只迁移一个已有脚本入口的 workflow，不扩成全量 skills 改造
+- [x] 不把 skill 变成 command 文案的机械复制；优先强化“何时用、如何解释结果”的边界
+
+### Phase 3 — 示例工程与产品化
+
+**目标**：先交付一个可生成、可验证的 demo workspace，证明安装后首轮体验真的可跑通
+
+**Slice A：demo workspace bootstrap（当前活跃）**
+- [x] 新增脚本生成最小 demo workspace，而不是手工维护一份复制仓库
+- [x] demo workspace 默认注入 NexusRhythm，并能通过 `doctor quick`
+- [x] demo workspace 默认具备最小宿主代码与测试，并能通过 `gate-check`
+- [x] 为 demo workspace 生成链路补齐 smoke tests
+
+**阶段约束**：
+- [x] 先证明“干净目录 -> 可用示例工程”的链路，再决定是否扩文档和发布材料
+- [x] 避免维护一整份静态复制 demo 仓库；优先生成式方案

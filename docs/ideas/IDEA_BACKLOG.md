@@ -34,6 +34,7 @@
 
 ## Distribution
 
+- 让 `install.sh` 使用中立的项目模板，而不是直接复制脚手架仓库自身的 `ROADMAP.md`
 - 发布一个 `install --upgrade` 路径，而不仅是“不覆盖已有文件”的初次注入
 - 为 GitHub Template、curl 安装和 plugin 安装三种方式分别提供文档
 - 增加版本号和升级日志，便于团队知道何时需要同步脚手架变更

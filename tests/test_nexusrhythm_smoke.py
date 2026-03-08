@@ -34,6 +34,10 @@ def install_project(target: Path) -> None:
         raise AssertionError(result.stderr or result.stdout)
 
 
+def create_demo_workspace(target: Path) -> subprocess.CompletedProcess[str]:
+    return run(["python3", str(REPO_ROOT / "scripts" / "create_demo_workspace.py"), str(target)], REPO_ROOT)
+
+
 def parse_roadmap_field(project_root: Path, key: str) -> str:
     text = (project_root / "ROADMAP.md").read_text(encoding="utf-8")
     match = re.search(rf"^{re.escape(key)}:\s*(.*?)\s*(?:#.*)?$", text, re.MULTILINE)
@@ -78,6 +82,7 @@ class NexusRhythmSmokeTests(unittest.TestCase):
             self.project_root / ".claude" / "commands" / "review.md",
             self.project_root / ".claude" / "commands" / "doctor.md",
             self.project_root / ".claude" / "skills" / "doctor" / "SKILL.md",
+            self.project_root / ".claude" / "skills" / "gate-check" / "SKILL.md",
             self.project_root / ".claude" / "commands" / "idea-capture.md",
             self.project_root / ".claude" / "commands" / "mvp-shape.md",
             self.project_root / ".claude" / "commands" / "roadmap-init.md",
@@ -108,6 +113,43 @@ class NexusRhythmSmokeTests(unittest.TestCase):
 
     def test_install_copies_ci_workflow(self) -> None:
         self.assertTrue((self.project_root / ".github" / "workflows" / "ci.yml").exists())
+
+    def test_create_demo_workspace_bootstraps_project(self) -> None:
+        demo_root = Path(self.temp_dir.name) / "demo-workspace"
+        result = create_demo_workspace(demo_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        expected_paths = [
+            demo_root / "pyproject.toml",
+            demo_root / "README.md",
+            demo_root / "demo_app" / "__init__.py",
+            demo_root / "demo_app" / "calculator.py",
+            demo_root / "tests" / "test_demo_app.py",
+            demo_root / "ROADMAP.md",
+            demo_root / ".claude" / "commands" / "doctor.md",
+        ]
+        for path in expected_paths:
+            self.assertTrue(path.exists(), str(path))
+
+    def test_create_demo_workspace_refuses_nonempty_directory(self) -> None:
+        demo_root = Path(self.temp_dir.name) / "demo-workspace"
+        demo_root.mkdir()
+        (demo_root / "keep.txt").write_text("occupied\n", encoding="utf-8")
+        result = create_demo_workspace(demo_root)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Target directory is not empty", result.stderr or result.stdout)
+
+    def test_demo_workspace_passes_doctor_and_gate_check(self) -> None:
+        demo_root = Path(self.temp_dir.name) / "demo-workspace"
+        result = create_demo_workspace(demo_root)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+        doctor_result = run(["python3", "scripts/nr.py", "doctor", "quick"], demo_root)
+        self.assertEqual(doctor_result.returncode, 0, doctor_result.stderr or doctor_result.stdout)
+        self.assertIn("GREEN", doctor_result.stdout)
+
+        gate_result = run(["python3", "scripts/nr.py", "gate-check", "--no-update"], demo_root)
+        self.assertEqual(gate_result.returncode, 0, gate_result.stderr or gate_result.stdout)
+        self.assertIn("✅ GATE CHECK PASSED", gate_result.stdout)
 
     def test_session_start_status_output(self) -> None:
         result = run(
@@ -269,6 +311,17 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         self.assertIn("name: doctor", skill_text)
         self.assertIn("disable-model-invocation: true", skill_text)
         self.assertIn("scripts/nr.py doctor", skill_text)
+        self.assertIn("当前步骤：", skill_text)
+        self.assertIn("原因：", skill_text)
+        self.assertIn("下一步：", skill_text)
+
+    def test_gate_check_skill_is_available(self) -> None:
+        skill_path = self.project_root / ".claude" / "skills" / "gate-check" / "SKILL.md"
+        self.assertTrue(skill_path.exists())
+        skill_text = skill_path.read_text(encoding="utf-8")
+        self.assertIn("name: gate-check", skill_text)
+        self.assertIn("disable-model-invocation: true", skill_text)
+        self.assertIn("scripts/nr.py gate-check", skill_text)
         self.assertIn("当前步骤：", skill_text)
         self.assertIn("原因：", skill_text)
         self.assertIn("下一步：", skill_text)
