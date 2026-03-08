@@ -4,7 +4,7 @@ argument-hint: "[功能名]"
 disable-model-invocation: true
 ---
 
-基于 `docs/templates/SPEC.md` 模板，为以下功能生成一份完整的 SDD 文档：
+基于 `docs/templates/SPEC_TEMPLATE.md` 模板，为以下功能生成一份完整的 SDD 文档：
 
 **功能描述**：$ARGUMENTS
 

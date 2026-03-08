@@ -144,6 +144,18 @@ Reject / Hold                → 保留在 backlog，不进入阶段承诺
 - backlog 是收集区，不是承诺区
 - 只有通过评审的点子才能影响阶段计划和优先级
 
+### 文档命名规则
+
+- 根目录入口文档使用固定名称：`GUIDE.md`、`HANDBOOK.md`、`RHYTHM.md`、`SYSTEM_CONTEXT.md`
+- 模板文档统一命名为 `TYPE_TEMPLATE.md`
+- 阶段 SPEC 统一命名为 `SPEC_PHASE_N_short-kebab-topic.md`
+- 阶段 walkthrough 统一命名为 `WALKTHROUGH_PHASE_N.md`
+- 阶段 review 统一命名为 `CODE_REVIEW_PHASE_N.md`
+- ADR 统一命名为 `ADR-NNN-short-kebab-topic.md`
+- Journal 统一命名为 `YYYY-MM-DD.md`
+- `docs/assessments/`、`docs/designs/`、`docs/ideas/`、`docs/plans/` 下的项目文档统一使用 `SCREAMING_SNAKE_CASE.md`
+- 文件名默认使用 ASCII、小写 kebab-case 或全大写 snake case；不要混用空格、中文文件名或随意缩写
+
 ---
 
 ## V. 阶段启动快速检查清单（模式 1）

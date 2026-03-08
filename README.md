@@ -1,11 +1,8 @@
 <div align="center">
-  <img src="https://avatars.githubusercontent.com/u/258567441?v=4" alt="NeoxNexus Logo" width="300"/>
-  <h1>NeoxNexus</h1>
-  <p>Next-Gen AI Ecosystem by Neo</p>
+  <img src="https://avatars.githubusercontent.com/u/258567441?v=4" alt="NexusRhythm Logo" width="300"/>
+  <h1>NexusRhythm</h1>
+  <p>Claude Code workflow scaffold by Neo</p>
 </div>
-
-
-# NexusRhythm 🎵
 
 > **AI 时代的工程开发节奏** — 让 Claude Code 成为真正懂你项目的搭档
 
@@ -61,19 +58,25 @@ project/
 ├── ROADMAP.md                   # 📊 项目状态机（唯一真相源）
 │
 ├── docs/
+│   ├── GUIDE.md                 # 📘 项目快速指南
+│   ├── HANDBOOK.md              # 📗 人类协作手册
 │   ├── RHYTHM.md                # 📖 完整开发规范（人类可读）
 │   ├── SYSTEM_CONTEXT.md        # 🏗️ 架构决策记录
+│   ├── assessments/             # 🧪 项目评估与合规审计
+│   ├── designs/                 # 🧭 工作流与机制设计文档
+│   ├── ideas/                   # 💡 点子收集与评审结果
+│   ├── plans/                   # 🗺️ 阶段计划与执行方案
 │   ├── templates/               # 📝 文档模板
-│   │   ├── SPEC.md              #   SDD 模板
+│   │   ├── SPEC_TEMPLATE.md     #   SDD 模板
 │   │   ├── WALKTHROUGH_TEMPLATE.md # Walkthrough 模板
 │   │   ├── CODE_REVIEW_TEMPLATE.md # Code Review 模板
 │   │   ├── JOURNAL_TEMPLATE.md  #   日志模板
 │   │   └── ADR_TEMPLATE.md      #   架构决策记录模板
-│   ├── specs/                   # SDD 文档存放（自动生成）
-│   ├── walkthroughs/            # Walkthrough 存放（自动生成）
-│   ├── reviews/                 # Code Review 存放（自动生成）
+│   ├── specs/                   # SDD 文档（SPEC_PHASE_N_*.md）
+│   ├── walkthroughs/            # 阶段 walkthrough（WALKTHROUGH_PHASE_N.md）
+│   ├── reviews/                 # 阶段 review（CODE_REVIEW_PHASE_N.md）
 │   ├── journal/                 # 每日日志（YYYY-MM-DD.md）
-│   └── decisions/               # ADR 记录
+│   └── decisions/               # ADR 记录（ADR-NNN-*.md）
 │
 └── .claude/
     ├── settings.json            # ⚙️ Hooks 配置
@@ -145,6 +148,14 @@ project/
      ↓
 下个阶段循环 ↑
 ```
+
+## 🗂️ 文档命名规则
+
+- 根入口文档使用固定名称：`GUIDE.md`、`HANDBOOK.md`、`RHYTHM.md`、`SYSTEM_CONTEXT.md`
+- 模板统一使用 `TYPE_TEMPLATE.md`
+- 阶段文档分别使用 `SPEC_PHASE_N_*.md`、`WALKTHROUGH_PHASE_N.md`、`CODE_REVIEW_PHASE_N.md`
+- ADR 使用 `ADR-NNN-*.md`，Journal 使用 `YYYY-MM-DD.md`
+- `docs/assessments/`、`docs/designs/`、`docs/ideas/`、`docs/plans/` 下统一使用 `SCREAMING_SNAKE_CASE.md`
 
 ---
 

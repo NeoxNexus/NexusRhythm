@@ -42,6 +42,7 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 **规划输入规则**：
 - 执行过程中产生的点子先进入 `docs/ideas/IDEA_BACKLOG.md`
 - 只有经过 `/idea-review` 审核为 `Approved Now` / `Approved Later` 的点子，才允许进入本 ROADMAP
+- 新增计划、评估、设计类文档时，文件名遵循 `docs/RHYTHM.md` 中的文档命名规则
 
 ---
 
