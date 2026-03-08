@@ -1,3 +1,9 @@
+---
+description: Execute the three mandatory quality gates for the current project.
+argument-hint: "[types|build|tests]"
+disable-model-invocation: true
+---
+
 执行三道强制门禁检查。根据项目 `ROADMAP.md` 中的 `Core_Tech_Stack` 自动判断使用哪些检查命令。
 
 **可选参数**：$ARGUMENTS（指定仅检查某一项，例如 `types` / `build` / `tests`）

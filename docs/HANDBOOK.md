@@ -26,7 +26,7 @@
 # 在 GitHub 仓库页面点击 "Use this template" → "Create a new repository"
 
 # 方式二：直接 Clone
-git clone https://github.com/[your-username]/NexusRhythm.git my-awesome-project
+git clone https://github.com/NeoxNexus/NexusRhythm.git my-awesome-project
 cd my-awesome-project
 rm -rf .git
 git init

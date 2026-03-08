@@ -1,3 +1,9 @@
+---
+description: Capture an architecture decision record and update the system context index.
+argument-hint: "[主题]"
+disable-model-invocation: true
+---
+
 帮我记录一个架构决策（ADR）。
 
 **决策主题**：$ARGUMENTS

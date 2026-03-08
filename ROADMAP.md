@@ -2,14 +2,14 @@
 
 ```yaml
 ---
-Project: "[项目名称]"
+Project: "NexusRhythm"
 Current_Phase: "Phase 0 - 初始化与规划"
-Phase_Status: PLANNING          # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
+Phase_Status: DONE              # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
 Active_Mode: 1                  # 0=Vibe | 1=Standard(default) | 2=Production
 Pending_Debt: false
 Debt_Deadline: null             # ISO8601，仅 Vibe Sprint 后设置，例: 2026-03-08T21:00:00+08:00
-Phases_Since_Vibe: 0            # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
-Core_Tech_Stack: "[语言 / 框架]"
+Phases_Since_Vibe: 1            # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
+Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 ---
 ```
 
@@ -17,14 +17,14 @@ Core_Tech_Stack: "[语言 / 框架]"
 
 ## 项目总体目标
 
-> 一句话描述核心价值
+> 把 Claude Code 的最佳实践沉淀为 clone 即用、文件驱动、可持续演进的 AI 协作开发脚手架
 
 **成功定义**（可验证标准）：
-- [ ] [目标 1 — 可量化]
-- [ ] [目标 2 — 可量化]
-- [ ] [目标 3 — 可量化]
+- [x] 新项目或存量项目可在 10 分钟内完成脚手架注入与会话启动
+- [x] hooks、commands、subagents 已按 2026-03-08 官方 Claude Code 文档完成一次兼容性审计并修复关键问题
+- [x] 形成 Phase 1 可执行 SPEC，将软性 prompt 约束升级为可验证的 scripts、CI 和 skills 体系
 
-**总体进度**：5%
+**总体进度**：40%
 
 ---
 
@@ -32,12 +32,17 @@ Core_Tech_Stack: "[语言 / 框架]"
 
 | 阶段 | 名称 | 目标 | 状态 | Phase_Status | 预计耗时 | 实际耗时 | 开始 | 结束 |
 |:----:|------|------|------|:------------:|----------|----------|------|------|
-| 0 | 初始化与规划 | 搭建脚手架、确立规范 | 🔄 进行中 | PLANNING | 4–8h | — | [日期] | [日期] |
-| 1 | [阶段1名称] | [一句话目标] | ⏳ 计划中 | — | [预估] | — | — | — |
-| 2 | [阶段2名称] | [一句话目标] | ⏳ 计划中 | — | [预估] | — | — | — |
-| 3 | [阶段3名称] | [一句话目标] | ⏳ 计划中 | — | [预估] | — | — | — |
+| 0 | 初始化与规划 | 明确定位、完成官方兼容性审计、补齐 Phase 1 规划文档 | ✅ 已完成 | DONE | 4–8h | 3.5h | 2026-03-08 | 2026-03-08 |
+| 1 | Claude Code 兼容性加固 | 落地 hooks smoke tests、`/doctor` 自检与一项代表性 workflow 试点迁移 | ⏳ 计划中 | — | 1–2d | — | — | — |
+| 2 | 自动化与硬门禁 | 把软性流程约束升级为可验证的脚本、CI 和更稳定的 skills 体系 | ⏳ 计划中 | — | 2–4d | — | — | — |
+| 3 | 示例工程与产品化 | 提供 demo 项目、安装验证和对外发布材料 | ⏳ 计划中 | — | 2–3d | — | — | — |
 
 **状态图例**：✅ 已完成 | 🔄 进行中 | ⏳ 计划中 | ⏸️ 已暂停 | ❌ 已取消
+
+**规划输入规则**：
+- 执行过程中产生的点子先进入 `docs/ideas/IDEA_BACKLOG.md`
+- 只有经过 `/idea-review` 审核为 `Approved Now` / `Approved Later` 的点子，才允许进入本 ROADMAP
+- 新增计划、评估、设计类文档时，文件名遵循 `docs/RHYTHM.md` 中的文档命名规则
 
 ---
 
@@ -45,7 +50,7 @@ Core_Tech_Stack: "[语言 / 框架]"
 
 ```mermaid
 gantt
-    title [项目名称] ROADMAP
+    title NexusRhythm ROADMAP
     dateFormat  YYYY-MM-DD
     axisFormat  %m-%d
 
@@ -53,9 +58,9 @@ gantt
     Phase 0 初始化        :done, 2026-03-01, 5d
 
     section 核心开发
-    Phase 1 [名称]        :active, 2026-03-06, 7d
-    Phase 2 [名称]        :        2026-03-13, 8d
-    Phase 3 [名称]        :        2026-03-21, 10d
+    Phase 1 兼容性加固      :        2026-03-09, 2d
+    Phase 2 自动化加固      :        2026-03-11, 4d
+    Phase 3 产品化          :        2026-03-15, 3d
 ```
 
 ---
@@ -67,13 +72,13 @@ gantt
 **目标**：搭建 AI 辅助开发脚手架，确立项目技术规范与架构方向
 
 **交付物清单**：
-- [ ] ROADMAP.md 填写完毕
-- [ ] docs/SYSTEM_CONTEXT.md 架构决策记录
-- [ ] 核心技术栈选型完成（ADR 记录）
-- [ ] Phase 1 的 SPEC 文档初稿
+- [x] ROADMAP.md 填写完毕
+- [x] docs/SYSTEM_CONTEXT.md 架构决策记录
+- [x] 核心技术栈选型完成（ADR 记录）
+- [x] Phase 1 的 SPEC 文档初稿
 
 **阶段结束仪式**：
-- [ ] 三门禁通过
-- [ ] WALKTHROUGH_PHASE_0.md 产出
-- [ ] CODE_REVIEW_PHASE_0.md 产出
-- [ ] ROADMAP.md Phase_Status 更新为 DONE
+- [x] 三门禁通过
+- [x] WALKTHROUGH_PHASE_0.md 产出
+- [x] CODE_REVIEW_PHASE_0.md 产出
+- [x] ROADMAP.md Phase_Status 更新为 DONE

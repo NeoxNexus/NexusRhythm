@@ -20,7 +20,7 @@ tools: [Read, Write, Glob, Grep]
 2. 读取 `docs/SYSTEM_CONTEXT.md` 了解整体架构约束
 
 ### Phase 2: 编写 SPEC 文档
-基于 `docs/templates/SPEC.md` 模板，在 `docs/specs/SPEC_PHASE_N_[功能名].md` 创建 SDD：
+基于 `docs/templates/SPEC_TEMPLATE.md` 模板，在 `docs/specs/SPEC_PHASE_N_[功能名].md` 创建 SDD：
 
 **必须包含的内容**：
 - 接口契约（函数签名、API 端点定义）

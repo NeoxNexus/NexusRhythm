@@ -1,15 +1,12 @@
 <div align="center">
-  <img src="https://avatars.githubusercontent.com/u/258567441?v=4" alt="NeoxNexus Logo" width="300"/>
-  <h1>NeoxNexus</h1>
-  <p>Next-Gen AI Ecosystem by Neo</p>
+  <img src="https://avatars.githubusercontent.com/u/258567441?v=4" alt="NexusRhythm Logo" width="300"/>
+  <h1>NexusRhythm</h1>
+  <p>Claude Code workflow scaffold by Neo</p>
 </div>
-
-
-# NexusRhythm 🎵
 
 > **AI 时代的工程开发节奏** — 让 Claude Code 成为真正懂你项目的搭档
 
-专为 Claude Code CLI 深度集成而设计的项目开发框架。Clone 即用，无需安装。
+专为 Claude Code 深度集成而设计的项目开发框架。Clone 即用，也支持注入到已有项目。
 
 ---
 
@@ -33,7 +30,7 @@
 ```bash
 # 方式 1：GitHub Template（点击右上角 "Use this template"）
 # 方式 2：直接 clone
-git clone https://github.com/[your-username]/nexus-scaffold.git my-project
+git clone https://github.com/NeoxNexus/NexusRhythm.git my-project
 cd my-project
 rm -rf .git && git init
 ```
@@ -42,7 +39,7 @@ rm -rf .git && git init
 
 ```bash
 # 将框架文件注入已有项目（不覆盖已有文件）
-curl -sSL https://raw.githubusercontent.com/[your-username]/nexus-scaffold/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/NeoxNexus/NexusRhythm/main/install.sh | bash
 ```
 
 ### 初始化你的项目
@@ -61,22 +58,29 @@ project/
 ├── ROADMAP.md                   # 📊 项目状态机（唯一真相源）
 │
 ├── docs/
+│   ├── GUIDE.md                 # 📘 项目快速指南
+│   ├── HANDBOOK.md              # 📗 人类协作手册
 │   ├── RHYTHM.md                # 📖 完整开发规范（人类可读）
 │   ├── SYSTEM_CONTEXT.md        # 🏗️ 架构决策记录
+│   ├── assessments/             # 🧪 项目评估与合规审计
+│   ├── designs/                 # 🧭 工作流与机制设计文档
+│   ├── ideas/                   # 💡 点子收集与评审结果
+│   ├── plans/                   # 🗺️ 阶段计划与执行方案
 │   ├── templates/               # 📝 文档模板
-│   │   ├── SPEC.md              #   SDD 模板
-│   │   ├── WALKTHROUGH.md       #   Walkthrough 模板
-│   │   ├── CODE_REVIEW.md       #   Code Review 模板
-│   │   ├── JOURNAL.md           #   日志模板
-│   │   └── ADR.md               #   架构决策记录模板
-│   ├── specs/                   # SDD 文档存放（自动生成）
-│   ├── walkthroughs/            # Walkthrough 存放（自动生成）
-│   ├── reviews/                 # Code Review 存放（自动生成）
+│   │   ├── SPEC_TEMPLATE.md     #   SDD 模板
+│   │   ├── WALKTHROUGH_TEMPLATE.md # Walkthrough 模板
+│   │   ├── CODE_REVIEW_TEMPLATE.md # Code Review 模板
+│   │   ├── JOURNAL_TEMPLATE.md  #   日志模板
+│   │   └── ADR_TEMPLATE.md      #   架构决策记录模板
+│   ├── specs/                   # SDD 文档（SPEC_PHASE_N_*.md）
+│   ├── walkthroughs/            # 阶段 walkthrough（WALKTHROUGH_PHASE_N.md）
+│   ├── reviews/                 # 阶段 review（CODE_REVIEW_PHASE_N.md）
 │   ├── journal/                 # 每日日志（YYYY-MM-DD.md）
-│   └── decisions/               # ADR 记录
+│   └── decisions/               # ADR 记录（ADR-NNN-*.md）
 │
 └── .claude/
     ├── settings.json            # ⚙️ Hooks 配置
+    ├── hooks/                   # 🪝 可复用 hook 脚本
     ├── agents/
     │   ├── architect.md         # 🏛️ 架构师 Agent
     │   ├── reviewer.md          # 🔍 评审 Agent
@@ -89,6 +93,8 @@ project/
         ├── phase-start.md       # /phase-start
         ├── phase-end.md         # /phase-end
         ├── gate-check.md        # /gate-check
+        ├── idea-review.md       # /idea-review
+        ├── doctor.md            # /doctor
         ├── spec.md              # /spec [功能名]
         ├── retro.md             # /retro
         ├── journal.md           # /journal
@@ -106,6 +112,9 @@ project/
 | `/phase-start [名称]` | 开新阶段 | 检查前置条件 → 召唤 architect → 写 SPEC 和红灯测试 |
 | `/spec [功能名]` | 需要 SDD | 基于模板生成 SDD，自动填充数据流和边界条件 |
 | `/gate-check` | 准备提交 | 三门禁：类型检查 + 构建 + 全量测试 |
+| `/review` | 需要独立评审时 | 手动触发 reviewer，输出审计结论 |
+| `/idea-review` | 阶段结束前 | 审核 backlog 中的点子，合格后再同步计划 |
+| `/doctor` | 会话早期或修复后 | 自检脚手架、hooks、commands 和阶段材料是否健康 |
 | `/phase-end` | 阶段完工 | 三门禁 → 更新 ROADMAP → Walkthrough → 召唤 reviewer |
 | `/retro` | 阶段结束后 | 引导 2 分钟小复盘并记录 |
 | `/journal` | 每天 | 快速记录今日进展和踩坑 |
@@ -127,7 +136,7 @@ project/
 ## 💡 推荐工作流
 
 ```
-会话开始 → /sync → 确认状态
+会话开始 → /sync → /doctor（可选）→ 确认状态
      ↓
 开新功能 → /phase-start → (architect 写 SPEC + 红灯测试)
      ↓
@@ -135,10 +144,18 @@ project/
      ↓
 准备提交 → /gate-check → 三门禁全通过
      ↓
-阶段结束 → /phase-end → (reviewer 评审) → /retro → /distill
+阶段结束 → /phase-end → (reviewer 评审) → /retro → /idea-review → /distill
      ↓
 下个阶段循环 ↑
 ```
+
+## 🗂️ 文档命名规则
+
+- 根入口文档使用固定名称：`GUIDE.md`、`HANDBOOK.md`、`RHYTHM.md`、`SYSTEM_CONTEXT.md`
+- 模板统一使用 `TYPE_TEMPLATE.md`
+- 阶段文档分别使用 `SPEC_PHASE_N_*.md`、`WALKTHROUGH_PHASE_N.md`、`CODE_REVIEW_PHASE_N.md`
+- ADR 使用 `ADR-NNN-*.md`，Journal 使用 `YYYY-MM-DD.md`
+- `docs/assessments/`、`docs/designs/`、`docs/ideas/`、`docs/plans/` 下统一使用 `SCREAMING_SNAKE_CASE.md`
 
 ---
 

@@ -1,3 +1,8 @@
+---
+description: Run the phase-end ritual, gate checks, walkthrough generation, and reviewer handoff.
+disable-model-invocation: true
+---
+
 执行阶段结束仪式（5 步）。严格按顺序执行：
 
 ---
@@ -39,12 +44,17 @@
 
 ---
 
-### Step 5: 小复盘 + 阶段归档
+### Step 5: 小复盘 + 点子评审 + 阶段归档
 引导填写 Walkthrough 末尾的小复盘模板：
 - 实际耗时 vs 预估
 - 最大意外
 - 最大收获/教训
 - 下阶段改进点
+
+如果本阶段产生了新点子：
+- 运行 `/idea-review`
+- 将 `Approved Now` / `Approved Later` 的点子同步进 `docs/ideas/IDEA_PORTFOLIO_REVIEW.md`
+- 只把审核通过的点子写入计划文档或 `ROADMAP.md`
 
 完成后：
 - 将 `Phase_Status` 更新为 `DONE`

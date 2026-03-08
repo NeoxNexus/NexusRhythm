@@ -1,3 +1,8 @@
+---
+description: Read ROADMAP status and report the current project phase.
+disable-model-invocation: true
+---
+
 读取项目 ROADMAP.md 的 YAML 头部，给我一份结构化的状态报告：
 
 1. **当前状态**
