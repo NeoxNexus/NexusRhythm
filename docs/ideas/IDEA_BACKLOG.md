@@ -12,6 +12,7 @@
 - 提供一个最小 demo repo，证明 NexusRhythm 在真实项目里能跑通一轮完整 phase cycle
 - 把脚手架升级为 Claude Code plugin，支持团队共享安装和版本管理
 - 设计一条“轻量模式”路径，适配不需要完整 Phase 仪式的小项目
+- 设计一条“零感知使用”路径：普通用户只表达意图，由 AI 自动路由 Discovery / Delivery、尽量隐藏命令和术语面
 
 ## Compatibility / Reliability
 
