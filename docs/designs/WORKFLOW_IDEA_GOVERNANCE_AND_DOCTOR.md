@@ -33,8 +33,8 @@ NexusRhythm 已经具备阶段状态机、文档沉淀、hooks、commands 和 re
 
 ### 3.1 收集区与承诺区分离
 
-- `docs/IDEA_BACKLOG.md` 是原始收集区
-- `docs/IDEA_PORTFOLIO_REVIEW.md` 是审查结论区
+- `docs/ideas/IDEA_BACKLOG.md` 是原始收集区
+- `docs/ideas/IDEA_PORTFOLIO_REVIEW.md` 是审查结论区
 - `ROADMAP.md` 是承诺区
 
 ### 3.2 先评审，后准入
@@ -55,7 +55,7 @@ NexusRhythm 已经具备阶段状态机、文档沉淀、hooks、commands 和 re
 
 ```mermaid
 flowchart TD
-    A["执行过程中出现点子"] --> B["记录到 docs/IDEA_BACKLOG.md"]
+    A["执行过程中出现点子"] --> B["记录到 docs/ideas/IDEA_BACKLOG.md"]
     B --> C{"阶段结束前<br/>运行 /idea-review ?"}
     C -->|否| D["点子停留在 backlog<br/>不进入 ROADMAP"]
     C -->|是| E["按证据、阶段匹配、成本、风险进行评审"]
@@ -151,7 +151,7 @@ flowchart TD
 
 点子只有在满足以下条件时才可进入 `ROADMAP.md`：
 
-1. 已写入 `docs/IDEA_BACKLOG.md`
+1. 已写入 `docs/ideas/IDEA_BACKLOG.md`
 2. 已经过 `/idea-review`
 3. 审查结论为 `Approved Now` 或 `Approved Later`
 4. 已明确是进入当前阶段还是未来阶段
@@ -161,9 +161,9 @@ flowchart TD
 
 ## 9. 文档落点
 
-- 原始点子：`docs/IDEA_BACKLOG.md`
-- 审查结论：`docs/IDEA_PORTFOLIO_REVIEW.md`
-- 阶段计划：如 `docs/PHASE_0_EXECUTION_PLAN.md`
+- 原始点子：`docs/ideas/IDEA_BACKLOG.md`
+- 审查结论：`docs/ideas/IDEA_PORTFOLIO_REVIEW.md`
+- 阶段计划：如 `docs/plans/PHASE_0_EXECUTION_PLAN.md`
 - 正式承诺：`ROADMAP.md`
 - 结构性决策：`docs/decisions/*.md`
 - 健康检查入口：`.claude/commands/doctor.md`

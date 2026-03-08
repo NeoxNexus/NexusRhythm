@@ -2,7 +2,7 @@
 
 **日期**：YYYY-MM-DD
 **评审范围**：[阶段 / 时间窗口]
-**输入来源**：`docs/IDEA_BACKLOG.md` + [可选：Walkthrough / Review / Journal]
+**输入来源**：`docs/ideas/IDEA_BACKLOG.md` + [可选：Walkthrough / Review / Journal]
 
 ---
 

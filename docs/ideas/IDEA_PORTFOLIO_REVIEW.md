@@ -2,7 +2,7 @@
 
 **Date**: 2026-03-08  
 **Reviewer**: Change Auditor rubric + Codex  
-**Input Source**: [IDEA_BACKLOG.md](/Users/neo/.codex/worktrees/7a12/NexusRhythm/docs/IDEA_BACKLOG.md)
+**Input Source**: [IDEA_BACKLOG.md](/Users/neo/.codex/worktrees/7a12/NexusRhythm/docs/ideas/IDEA_BACKLOG.md)
 
 ---
 

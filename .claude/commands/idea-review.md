@@ -6,12 +6,12 @@ disable-model-invocation: true
 
 执行一次点子评审，将“执行过程中顺手记下的想法”转化为有结论的计划输入。
 
-**评审范围**：`$ARGUMENTS`（如未提供，默认评审 `docs/IDEA_BACKLOG.md` 中自上次审查以来的新增点子）
+**评审范围**：`$ARGUMENTS`（如未提供，默认评审 `docs/ideas/IDEA_BACKLOG.md` 中自上次审查以来的新增点子）
 
 ---
 
 ### Step 1: 收集候选点子
-1. 读取 `docs/IDEA_BACKLOG.md`
+1. 读取 `docs/ideas/IDEA_BACKLOG.md`
 2. 读取最近阶段的 Walkthrough、Code Review、Journal
 3. 只提取本阶段新产生的、尚未审查的点子
 
@@ -29,7 +29,7 @@ disable-model-invocation: true
 - `Reject`
 
 ### Step 3: 产出评审结果
-更新或生成 `docs/IDEA_PORTFOLIO_REVIEW.md`：
+更新或生成 `docs/ideas/IDEA_PORTFOLIO_REVIEW.md`：
 - 记录每个点子的结论与原因
 - 明确 `Approved Now` 和 `Approved Later` 的推荐顺序
 

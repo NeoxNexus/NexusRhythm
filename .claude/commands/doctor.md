@@ -53,8 +53,8 @@ disable-model-invocation: true
 
 ### Step 5: 点子治理闭环检查
 确认：
-- `docs/IDEA_BACKLOG.md` 存在
-- `docs/IDEA_PORTFOLIO_REVIEW.md` 存在
+- `docs/ideas/IDEA_BACKLOG.md` 存在
+- `docs/ideas/IDEA_PORTFOLIO_REVIEW.md` 存在
 - `docs/templates/IDEA_REVIEW_TEMPLATE.md` 存在
 - 规则已声明“未审查点子不得直接进入 ROADMAP”
 
@@ -71,4 +71,4 @@ disable-model-invocation: true
 - 失败项
 - 建议修复动作
 
-**禁止**在 `/doctor` 中隐式修改文件；默认只诊断、不修复。
+**禁止**在 `/doctor` 中隐式修改文件；默认只诊断、不修复。 

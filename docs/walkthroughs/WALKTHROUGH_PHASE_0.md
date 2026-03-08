@@ -12,9 +12,9 @@
 本阶段把 NexusRhythm 从“有完整模板，但项目自身仍是模板占位状态”的脚手架，推进成了一个已经完成自我描述、完成官方兼容性审计、形成下一阶段执行计划的项目。更具体地说，这一轮工作没有扩展新功能，而是先校准项目自身，让后续开发建立在真实、可验证、可复盘的基础上。
 
 ### 主要交付物
-- [x] 完成项目级正式评估报告 `docs/PROJECT_ASSESSMENT.md`
-- [x] 完成 Claude Code 合规审计 `docs/CLAUDE_CODE_COMPLIANCE_AUDIT.md`
-- [x] 完成 Phase 0 执行计划 `docs/PHASE_0_EXECUTION_PLAN.md`
+- [x] 完成项目级正式评估报告 `docs/assessments/PROJECT_ASSESSMENT.md`
+- [x] 完成 Claude Code 合规审计 `docs/assessments/CLAUDE_CODE_COMPLIANCE_AUDIT.md`
+- [x] 完成 Phase 0 执行计划 `docs/plans/PHASE_0_EXECUTION_PLAN.md`
 - [x] 完成 Phase 1 SPEC 初稿 `docs/specs/SPEC_PHASE_1_claude-code-compatibility-hardening.md`
 - [x] 完成 ADR-001，明确“兼容性优先、渐进迁移到 skills”的演进策略
 - [x] 新增 `/review` 命令，补齐文档已承诺但仓库缺失的命令入口
@@ -83,7 +83,7 @@
 - 不要继续无界扩文档，下一阶段必须把兼容性工作推进到 smoke tests 和可验证行为
 - 如果要迁移到 `.claude/skills/`，先挑一个代表性流程试点，不要一次性重构全部命令
 - 每次引用 Claude Code 新特性前都要重新对照官方文档，不要凭记忆写配置
-- `docs/IDEA_BACKLOG.md` 里很多点子是方向，不是承诺；必须先做客观筛选再进阶段计划
+- `docs/ideas/IDEA_BACKLOG.md` 里很多点子是方向，不是承诺；必须先做客观筛选再进阶段计划
 
 ---
 

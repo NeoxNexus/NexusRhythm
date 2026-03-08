@@ -53,7 +53,7 @@ disable-model-invocation: true
 
 如果本阶段产生了新点子：
 - 运行 `/idea-review`
-- 将 `Approved Now` / `Approved Later` 的点子同步进 `docs/IDEA_PORTFOLIO_REVIEW.md`
+- 将 `Approved Now` / `Approved Later` 的点子同步进 `docs/ideas/IDEA_PORTFOLIO_REVIEW.md`
 - 只把审核通过的点子写入计划文档或 `ROADMAP.md`
 
 完成后：
