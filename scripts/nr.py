@@ -1287,6 +1287,7 @@ def required_paths(root: Path) -> dict[str, Path]:
     return {
         "roadmap": root / "ROADMAP.md",
         "claude": root / "CLAUDE.md",
+        "ci_workflow": root / ".github" / "workflows" / "ci.yml",
         "settings": root / ".claude" / "settings.json",
         "commands": root / ".claude" / "commands",
         "agents": root / ".claude" / "agents",

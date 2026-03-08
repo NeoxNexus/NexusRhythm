@@ -106,6 +106,9 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         self.assertTrue((target_root / "scripts" / "nr.py").exists())
         self.assertTrue((target_root / ".claude" / "commands" / "doctor.md").exists())
 
+    def test_install_copies_ci_workflow(self) -> None:
+        self.assertTrue((self.project_root / ".github" / "workflows" / "ci.yml").exists())
+
     def test_session_start_status_output(self) -> None:
         result = run(
             ["bash", str(self.project_root / ".claude" / "hooks" / "session-status.sh")],
@@ -289,6 +292,13 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("missing template_spec", result.stdout)
 
+    def test_doctor_fails_when_ci_workflow_is_missing(self) -> None:
+        workflow_path = self.project_root / ".github" / "workflows" / "ci.yml"
+        workflow_path.unlink(missing_ok=True)
+        result = run(["python3", "scripts/nr.py", "doctor", "quick"], self.project_root)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("missing ci_workflow", result.stdout)
+
     def test_gate_check_mode2_node_requires_coverage_script(self) -> None:
         replace_roadmap_field(self.project_root, "Active_Mode", "2")
         bin_dir = self.project_root / "bin"
@@ -364,6 +374,14 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         logged_args = pytest_log.read_text(encoding="utf-8").strip()
         self.assertIn("--cov=.", logged_args)
         self.assertIn("--cov-fail-under=80", logged_args)
+
+    def test_ci_workflow_runs_nexusrhythm_entrypoints(self) -> None:
+        workflow_path = REPO_ROOT / ".github" / "workflows" / "ci.yml"
+        self.assertTrue(workflow_path.exists())
+        workflow_text = workflow_path.read_text(encoding="utf-8")
+        self.assertIn("python3 scripts/nr.py doctor quick", workflow_text)
+        self.assertIn("python3 -m unittest tests.test_nexusrhythm_smoke", workflow_text)
+        self.assertIn("python3 scripts/nr.py gate-check", workflow_text)
 
 
 if __name__ == "__main__":

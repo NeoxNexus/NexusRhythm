@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "codex/**"
+      - "feature/**"
+      - "feat/**"
+  pull_request:
+
+jobs:
+  scaffold-gates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run doctor quick
+        run: python3 scripts/nr.py doctor quick
+
+      - name: Run smoke tests
+        run: python3 -m unittest tests.test_nexusrhythm_smoke
+
+      - name: Run gate check
+        run: python3 scripts/nr.py gate-check

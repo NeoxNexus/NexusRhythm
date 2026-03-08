@@ -33,6 +33,7 @@ has_source_tree() {
     "docs/RHYTHM.md"
     "docs/SYSTEM_CONTEXT.md"
     "docs/ideas/README.md"
+    ".github/workflows/ci.yml"
     ".claude/settings.json"
     "scripts/nr.py"
   )
@@ -129,6 +130,15 @@ done
 echo ""
 echo "🤖 安装 Claude Code 集成..."
 copy_if_not_exists "$SOURCE_DIR/.claude/settings.json" "$TARGET_DIR/.claude/settings.json"
+
+if [ -d "$SOURCE_DIR/.github/workflows" ]; then
+  echo ""
+  echo "🔁 安装 CI 自动化..."
+  while IFS= read -r -d '' workflow_file; do
+    relative_path="${workflow_file#"$SOURCE_DIR/"}"
+    copy_if_not_exists "$workflow_file" "$TARGET_DIR/$relative_path"
+  done < <(find "$SOURCE_DIR/.github/workflows" -type f -print0)
+fi
 
 echo ""
 echo "🛠️  安装脚本执行层..."
