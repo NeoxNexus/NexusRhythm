@@ -41,6 +41,7 @@ echo ""
 echo "📚 安装文档规范..."
 copy_if_not_exists "$SCRIPT_DIR/docs/RHYTHM.md" "$TARGET_DIR/docs/RHYTHM.md"
 copy_if_not_exists "$SCRIPT_DIR/docs/SYSTEM_CONTEXT.md" "$TARGET_DIR/docs/SYSTEM_CONTEXT.md"
+copy_if_not_exists "$SCRIPT_DIR/docs/ideas/README.md" "$TARGET_DIR/docs/ideas/README.md"
 
 echo ""
 echo "📝 安装文档模板..."
@@ -52,6 +53,14 @@ done
 echo ""
 echo "🤖 安装 Claude Code 集成..."
 copy_if_not_exists "$SCRIPT_DIR/.claude/settings.json" "$TARGET_DIR/.claude/settings.json"
+
+echo ""
+echo "🛠️  安装脚本执行层..."
+for script in "$SCRIPT_DIR/scripts/"*.py; do
+  fname=$(basename "$script")
+  copy_if_not_exists "$script" "$TARGET_DIR/scripts/$fname"
+done
+copy_if_not_exists "$SCRIPT_DIR/scripts/__init__.py" "$TARGET_DIR/scripts/__init__.py"
 
 for hook in "$SCRIPT_DIR/.claude/hooks/"*.sh; do
   fname=$(basename "$hook")
@@ -75,13 +84,28 @@ done
 
 echo ""
 echo "📁 创建必要目录..."
-for dir in "tests" "docs/specs" "docs/walkthroughs" "docs/reviews" "docs/journal" "docs/decisions"; do
+for dir in \
+  "tests" \
+  "docs/specs" \
+  "docs/walkthroughs" \
+  "docs/reviews" \
+  "docs/journal" \
+  "docs/decisions" \
+  "docs/ideas" \
+  ".nexus/tasks" \
+  ".nexus/memory"; do
   if [ ! -d "$TARGET_DIR/$dir" ]; then
     mkdir -p "$TARGET_DIR/$dir"
     touch "$TARGET_DIR/$dir/.gitkeep"
     echo -e "  ${GREEN}✅ 已创建${NC}: $dir/"
   fi
 done
+
+copy_if_not_exists "$SCRIPT_DIR/.nexus/tasks/README.md" "$TARGET_DIR/.nexus/tasks/README.md"
+copy_if_not_exists "$SCRIPT_DIR/.nexus/memory/today.md" "$TARGET_DIR/.nexus/memory/today.md"
+copy_if_not_exists "$SCRIPT_DIR/.nexus/memory/active-tasks.json" "$TARGET_DIR/.nexus/memory/active-tasks.json"
+copy_if_not_exists "$SCRIPT_DIR/.nexus/memory/blockers.md" "$TARGET_DIR/.nexus/memory/blockers.md"
+copy_if_not_exists "$SCRIPT_DIR/.nexus/memory/handoff.md" "$TARGET_DIR/.nexus/memory/handoff.md"
 
 echo ""
 echo "════════════════════════════════════════"

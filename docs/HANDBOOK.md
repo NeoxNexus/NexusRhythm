@@ -7,6 +7,7 @@
 ## 目录
 
 - [第一章：安装与初始化](#第一章安装与初始化)
+- [第二章：如果你现在只有一个模糊想法](#第二章如果你现在只有一个模糊想法)
 - [第二章：你的第一天（Phase 0）](#第二章你的第一天phase-0)
 - [第三章：完整的开发循环（Phase 1+）](#第三章完整的开发循环phase-1)
 - [第四章：日常节奏](#第四章日常节奏)
@@ -113,6 +114,26 @@ claude
 
 ✅ 项目状态正常，可以开始工作。
 ```
+
+---
+
+## 第二章：如果你现在只有一个模糊想法
+
+不要直接进入 `/phase-start`。先完成 Discovery 三步走：
+
+```mermaid
+graph LR
+    A["/idea-capture<br/>把想法写成 IDEA_BRIEF"]
+    --> B["/mvp-shape<br/>明确 In Scope / Out Of Scope"]
+    --> C["/roadmap-init<br/>生成前三阶段路线图"]
+    --> D["Project_Stage = DELIVERY<br/>再进入 /phase-start"]
+```
+
+约束：
+
+- `Project_Stage != DELIVERY` 时，不允许进入 Delivery
+- `Idea_Clarity < 3` 时，不允许 `/phase-start`
+- `SPEC` 只服务当前 Phase 的实现，不替代 `IDEA_BRIEF` 或 `MVP_CANVAS`
 
 ---
 

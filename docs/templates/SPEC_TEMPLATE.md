@@ -11,6 +11,11 @@
 
 [为什么需要这个功能？解决什么问题？]
 
+**Upstream Idea Brief**：`docs/ideas/IDEA_BRIEF.md` / [如无则写 N/A]
+**Upstream MVP Canvas**：`docs/ideas/MVP_CANVAS.md` / [如无则写 N/A]
+**Mapped Success Metric**：[本阶段命中哪一个上游成功指标]
+**Why This Phase Now**：[为什么这个阶段现在做，而不是更晚做]
+
 **范围**（In Scope）：
 - [包含项 1]
 

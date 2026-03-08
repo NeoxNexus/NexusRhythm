@@ -3,12 +3,18 @@
 ```yaml
 ---
 Project: "NexusRhythm"
+Project_Stage: "DELIVERY"       # IDEA|DISCOVERY|MVP_DEFINED|ROADMAP_READY|DELIVERY
 Current_Phase: "Phase 0 - 初始化与规划"
 Phase_Status: DONE              # PLANNING|SPEC_READY|RED_TESTS|GREEN_CODE|GATE_CHECK|REVIEW|DONE
 Active_Mode: 1                  # 0=Vibe | 1=Standard(default) | 2=Production
 Pending_Debt: false
 Debt_Deadline: null             # ISO8601，仅 Vibe Sprint 后设置，例: 2026-03-08T21:00:00+08:00
 Phases_Since_Vibe: 1            # 距上次 Vibe Sprint 的阶段计数（满3可解锁下一次）
+Idea_Clarity: 4
+Target_User: "Claude Code 重度使用者、需要项目级节奏治理的个人开发者与小团队"
+Core_Problem: "项目在目标明确后交付质量高，但缺少脚本化执行层和模糊 idea 的前置收敛层"
+Success_Metrics: "10 分钟内完成脚手架注入；核心命令有脚本和 smoke tests；Discovery 产物可追溯到 Delivery SPEC"
+Primary_Risk: "如果继续依赖 prompt 自觉执行，Discovery 与 Delivery 会同时漂移"
 Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 ---
 ```
@@ -23,6 +29,12 @@ Core_Tech_Stack: "Markdown, Claude Code config, Bash hooks, Git"
 - [x] 新项目或存量项目可在 10 分钟内完成脚手架注入与会话启动
 - [x] hooks、commands、subagents 已按 2026-03-08 官方 Claude Code 文档完成一次兼容性审计并修复关键问题
 - [x] 形成 Phase 1 可执行 SPEC，将软性 prompt 约束升级为可验证的 scripts、CI 和 skills 体系
+
+## Discovery 摘要
+
+- 当前 `Project_Stage` 为 `DELIVERY`，说明项目已完成前置定义，当前重点是把 Delivery 内核工程化并补齐 Discovery 入口
+- `Project_Stage` 管 idea 到 roadmap 的成熟度；`Phase_Status` 只管当前 Delivery 阶段的执行状态
+- Discovery 产物链路固定为：`IDEA_BRIEF -> MVP_CANVAS -> ROADMAP_INIT -> DELIVERY`
 
 **总体进度**：40%
 

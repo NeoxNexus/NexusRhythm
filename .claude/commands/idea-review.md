@@ -4,7 +4,12 @@ argument-hint: "[范围或阶段]"
 disable-model-invocation: true
 ---
 
-执行一次点子评审，将“执行过程中顺手记下的想法”转化为有结论的计划输入。
+执行一次 backlog 点子评审，将“执行过程中顺手记下的想法”转化为有结论的计划输入。
+
+注意：
+
+- 这个命令只负责 backlog 准入，不负责 Discovery 主链路
+- 模糊想法立项请使用 `/idea-capture -> /mvp-shape -> /roadmap-init`
 
 **评审范围**：`$ARGUMENTS`（如未提供，默认评审 `docs/ideas/IDEA_BACKLOG.md` 中自上次审查以来的新增点子）
 
