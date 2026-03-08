@@ -88,6 +88,23 @@ class NexusRhythmSmokeTests(unittest.TestCase):
         for path in expected_paths:
             self.assertTrue(path.exists(), str(path))
 
+    def test_standalone_install_script_bootstraps_without_repo_layout(self) -> None:
+        standalone_script = Path(self.temp_dir.name) / "standalone-install.sh"
+        standalone_script.write_text((REPO_ROOT / "install.sh").read_text(encoding="utf-8"), encoding="utf-8")
+
+        target_root = Path(self.temp_dir.name) / "remote-project"
+        target_root.mkdir()
+        result = run(
+            ["bash", str(standalone_script)],
+            target_root,
+            env={"NEXUSRHYTHM_SOURCE_DIR": str(REPO_ROOT)},
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        self.assertTrue((target_root / "CLAUDE.md").exists())
+        self.assertTrue((target_root / "scripts" / "nr.py").exists())
+        self.assertTrue((target_root / ".claude" / "commands" / "doctor.md").exists())
+
     def test_session_start_status_output(self) -> None:
         result = run(
             ["bash", str(self.project_root / ".claude" / "hooks" / "session-status.sh")],
