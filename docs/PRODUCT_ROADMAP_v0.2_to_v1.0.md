@@ -3,6 +3,7 @@
 **文档日期**：2026-03-08
 **定位**：面向 Claude Code 优先、强调项目开发节奏治理的 AI 工程框架
 **相关分析**：`docs/reviews/competitive-analysis.md`
+**执行分解**：版本路线的执行拆解与实时状态请以 `ROADMAP.md` 为准。
 
 ---
 

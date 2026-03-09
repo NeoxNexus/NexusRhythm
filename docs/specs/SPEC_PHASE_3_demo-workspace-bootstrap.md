@@ -1,7 +1,7 @@
-# SPEC: demo workspace bootstrap
+# SPEC: v0.2 blank-project bootstrap validation
 
-**Phase**: Phase 3 — 示例工程与产品化（Slice A）
-**Status**: Draft
+**Phase**: Phase 3 — v0.2 空白项目 bootstrap 验证
+**Status**: Implemented
 **Author**: Codex
 **Date**: 2026-03-09
 
@@ -9,14 +9,14 @@
 
 ## 1. 背景与目标
 
-Phase 2 已经证明 NexusRhythm 的脚本、CI 和 skills 基线在仓库自身内部是可靠的，但项目仍缺少一个对外可感知的“真实示例工程”。当前最大的产品化缺口不是再补一条规则，而是缺少一个可以在干净目录里直接生成、直接验证的 demo workspace，用来证明安装链路、首轮体验和宿主项目门禁确实能一起工作。
+Phase 2 已经证明 NexusRhythm 的脚本、CI 和 skills 基线在仓库自身内部是可靠的，但 `v0.2` 仍缺少一条关键验收：如何证明空白项目安装后真的能跑通。这份 SPEC 对应的不是更大范围的“产品化主线”，而是 `v0.2` 的 blank-project bootstrap validation。
 
-本轮只做 Phase 3 的第一刀：新增一个 demo workspace bootstrap 脚本。它负责创建最小 Python 示例项目、注入 NexusRhythm 脚手架，并让生成后的工程默认通过 `doctor quick` 与 `gate-check`。这比在仓库里手工维护一整份静态 demo 更稳，也更接近未来产品化的真实安装路径。
+本轮新增一个 demo workspace bootstrap 脚本。它负责创建最小 Python 示例项目、注入 NexusRhythm 脚手架，并让生成后的工程默认通过 `doctor quick` 与 `gate-check`。这比在仓库里手工维护一整份静态 demo 更稳，也更接近真实安装路径下的收口验收。
 
 **Upstream Idea Brief**：N/A
 **Upstream MVP Canvas**：N/A
-**Mapped Success Metric**：10 分钟内完成脚手架注入与会话启动，并用真实示例工程证明安装后链路可跑通
-**Why This Phase Now**：前两阶段已经把内部可靠性做实；现在最缺的是一个对外可验证的“安装后真实体验”样本
+**Mapped Success Metric**：10 分钟内完成脚手架注入与会话启动，并用空白项目样本证明安装后链路可跑通
+**Why This Phase Now**：如果没有这道 blank-project 验收，`v0.2` 只能证明“仓库自身可用”，还不能证明“新项目安装后可用”
 
 **范围**（In Scope）：
 - 新增脚本在目标目录生成最小 Python demo workspace
@@ -113,9 +113,9 @@ sequenceDiagram
 
 > 以下测试用例应在编写实现前全部写好并确认失败
 
-- [ ] `test_create_demo_workspace_bootstraps_project` — 生成最小 demo workspace 并注入脚手架
-- [ ] `test_create_demo_workspace_refuses_nonempty_directory` — 拒绝覆盖非空目录
-- [ ] `test_demo_workspace_passes_doctor_and_gate_check` — 生成后的 demo workspace 通过核心验证
+- [x] `test_create_demo_workspace_bootstraps_project` — 生成最小 demo workspace 并注入脚手架
+- [x] `test_create_demo_workspace_refuses_nonempty_directory` — 拒绝覆盖非空目录
+- [x] `test_demo_workspace_passes_doctor_and_gate_check` — 生成后的 demo workspace 通过核心验证
 
 ---
 
@@ -123,4 +123,4 @@ sequenceDiagram
 
 | 日期 | 评审人 | 意见 | 状态 |
 |------|--------|------|------|
-| 2026-03-09 | Codex | Phase 3 第一刀聚焦“生成式 demo workspace”，避免静态复制 demo 仓库 | Pending |
+| 2026-03-09 | Codex | 作为 `v0.2` 空白项目 bootstrap 验收实现完成 | Approved |
